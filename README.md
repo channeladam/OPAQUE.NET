@@ -1,0 +1,2 @@
+# OPAQUE.NET
+Don't store hashed passwords! This is a .NET 5 / Core implementation of the OPAQUE protocol - a 2021 successor to the Secure Remote Password (SRP) protocol. OPAQUE is an Asymmetric Password Authenticated Key Exchange (aPAKE) protocol that provides password authentication and mutually authenticated key exchange in a client-server setting without relying on PKI and without disclosing passwords to servers or other entities other than the client machine.
