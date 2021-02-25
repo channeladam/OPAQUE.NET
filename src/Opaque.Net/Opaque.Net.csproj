@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFrameworks>net5.0;netstandard2.0</TargetFrameworks>
-    <Version>0.1.1-alpha</Version>
     <Authors>Adam Craven</Authors>
     <Company>Adam Craven</Company>
     <PackageId>OPAQUE.NET</PackageId>
@@ -16,6 +15,7 @@
     <PackageIconUrl></PackageIconUrl>
     <PackageTags>Opaque,Cryptography,Asymmetric,PAKE,aPAKE,Password,Key Exchange</PackageTags>
     <PackageReleaseNotes>
+0.1.2-alpha - Configure Github Actions.
 0.1.1-alpha - WIP.
     </PackageReleaseNotes>
     <IsPackable>true</IsPackable>

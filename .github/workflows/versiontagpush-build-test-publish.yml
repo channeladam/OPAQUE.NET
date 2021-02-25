@@ -1,0 +1,38 @@
+name: Version Tag Push - Build, Test & Publish Package
+
+on:
+  push:
+    tags: [ 'v*' ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    env:
+      PROJECT_NAME: Opaque.Net
+      NUGET_FEED: https://api.nuget.org/v3/index.json
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Determine package version from Tag
+      run: |
+        refsArray=(${GITHUB_REF//\// })
+        versionTag="${refsArray[2]}"
+        version="${versionTag//v}"
+        echo "NuGet Package version will be ${version}"
+        echo "PACKAGE_VERSION=${version}" >> $GITHUB_ENV
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore -c Release /p:Version=${{ env.PACKAGE_VERSION }}
+    - name: Test
+      run: dotnet test --no-build -v normal -c Release
+    - name: Pack
+      run: dotnet pack --no-build -v normal -c Release -p:PackageVersion=${{ env.PACKAGE_VERSION }} -o ./package ./src/$PROJECT_NAME/$PROJECT_NAME.csproj
+    - name: Push to NuGet Feed
+      run: dotnet nuget push ./package/*.nupkg --source $NUGET_FEED --api-key ${{ secrets.NUGET_API_KEY }}

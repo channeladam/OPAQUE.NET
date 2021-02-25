@@ -1,10 +1,10 @@
-name: Develop - Build & Test
+name: Branch / PR - Build & Test
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ develop, main, 'feature/**' ]
   pull_request:
-    branches: [ develop ]
+    branches: [ develop, main, 'feature/**' ]
 
 jobs:
   build:
