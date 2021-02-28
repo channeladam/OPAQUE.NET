@@ -12,6 +12,15 @@ Scenario: Should error when attempting to convert an unsigned integer to an ordi
 When I2OSP is performed with an output length that is smaller than needed
 Then an error occurs about the output length being too small
 
+Scenario: Should correctly convert multiple unsigned integers to an ordinal string primitive (I2OSP) - into the same given byte array at different offsets
+When I2OSP is performed with multiple unsigned integers at different offsets in the same byte array
+Then the output byte array is correct and is exactly the needed length
+
+Scenario: Should error when attempting to convert an unsigned integer to an ordinal string primitive (I2OSP) - when the requested output length and offset is too small for the length of the given byte array
+When I2OSP is performed with an output length and offset that is smaller than needed for the given byte array
+Then an error occurs about the output length being too small
+
+
 Scenario: Should correctly convert an ordinal string to an unsigned integer primitive (OS2IP) - with an input byte array that is padded with zeros
 When OS2IP is performed with a byte array that is padded with zeros
 Then the output integer is correct

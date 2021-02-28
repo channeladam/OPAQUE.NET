@@ -59,6 +59,24 @@ namespace BehaviourSpecs
             Try(() => BigEndianUtils.ConvertIntegerToOrdinalStringPrimitive(944, 1));
         }
 
+        [When("I2OSP is performed with multiple unsigned integers at different offsets in the same byte array")]
+        public void WhenI2OSPIsPerformedWithMultipleUnsignedIntegersAtDifferentOffsetsInTheSameByteArray()
+        {
+            _actualBytes = new byte[5];
+            BigEndianUtils.ConvertIntegerToOrdinalStringPrimitive(944, 2, ref _actualBytes, 3); // offset 3 (positions 4 & 5)
+            BigEndianUtils.ConvertIntegerToOrdinalStringPrimitive(257, 2, ref _actualBytes, 0); // offset 0
+            _expectedBytes = new byte[] { 1, 1, 0, 3, 176 }; // 257 then 0 then 944 in base 256
+        }
+
+        [When("I2OSP is performed with an output length and offset that is smaller than needed for the given byte array")]
+        public void WhenI2OSPIsPerformedWithAnOutputLengthAndOffsetThatIsSmallerThanNeededForTheGivenByteArray()
+        {
+            ExpectedException.ExpectedType = typeof(ArithmeticException);
+            ExpectedException.MessageShouldContainText = "too large";
+            byte[] result = new byte[3];
+            Try(() => BigEndianUtils.ConvertIntegerToOrdinalStringPrimitive(944, 2, ref result, 2));
+        }
+
         [When("OS2IP is performed with a byte array that is padded with zeros")]
         public void WhenOS2IPIsPerformedWithAByteArrayThatIsPaddedWithZeros()
         {

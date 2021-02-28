@@ -191,14 +191,14 @@ testRunner.Then("an error occurs about the output length being too small", ((str
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Should correctly convert an ordinal string to an unsigned integer primitive (OS2I" +
-            "P) - with an input byte array that is padded with zeros")]
-        public virtual void ShouldCorrectlyConvertAnOrdinalStringToAnUnsignedIntegerPrimitiveOS2IP_WithAnInputByteArrayThatIsPaddedWithZeros()
+        [NUnit.Framework.DescriptionAttribute("Should correctly convert multiple unsigned integers to an ordinal string primitiv" +
+            "e (I2OSP) - into the same given byte array at different offsets")]
+        public virtual void ShouldCorrectlyConvertMultipleUnsignedIntegersToAnOrdinalStringPrimitiveI2OSP_IntoTheSameGivenByteArrayAtDifferentOffsets()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Should correctly convert an ordinal string to an unsigned integer primitive (OS2I" +
-                    "P) - with an input byte array that is padded with zeros", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Should correctly convert multiple unsigned integers to an ordinal string primitiv" +
+                    "e (I2OSP) - into the same given byte array at different offsets", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 15
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -220,24 +220,27 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 16
-testRunner.When("OS2IP is performed with a byte array that is padded with zeros", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("I2OSP is performed with multiple unsigned integers at different offsets in the sa" +
+                        "me byte array", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 17
-testRunner.Then("the output integer is correct", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("the output byte array is correct and is exactly the needed length", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Should correctly convert an ordinal string to an unsigned integer primitive (OS2I" +
-            "P) - with an input byte array that is not padded with zeros")]
-        public virtual void ShouldCorrectlyConvertAnOrdinalStringToAnUnsignedIntegerPrimitiveOS2IP_WithAnInputByteArrayThatIsNotPaddedWithZeros()
+        [NUnit.Framework.DescriptionAttribute("Should error when attempting to convert an unsigned integer to an ordinal string " +
+            "primitive (I2OSP) - when the requested output length and offset is too small for" +
+            " the length of the given byte array")]
+        public virtual void ShouldErrorWhenAttemptingToConvertAnUnsignedIntegerToAnOrdinalStringPrimitiveI2OSP_WhenTheRequestedOutputLengthAndOffsetIsTooSmallForTheLengthOfTheGivenByteArray()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Should correctly convert an ordinal string to an unsigned integer primitive (OS2I" +
-                    "P) - with an input byte array that is not padded with zeros", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Should error when attempting to convert an unsigned integer to an ordinal string " +
+                    "primitive (I2OSP) - when the requested output length and offset is too small for" +
+                    " the length of the given byte array", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 19
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -259,10 +262,11 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 20
-testRunner.When("OS2IP is performed with a byte array that is not padded with zeros", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("I2OSP is performed with an output length and offset that is smaller than needed f" +
+                        "or the given byte array", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 21
-testRunner.Then("the output integer is correct", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("an error occurs about the output length being too small", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -270,14 +274,14 @@ testRunner.Then("the output integer is correct", ((string)(null)), ((TechTalk.Sp
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Should correctly convert an ordinal string to an unsigned integer primitive (OS2I" +
-            "P) - to the max size of unsigned int")]
-        public virtual void ShouldCorrectlyConvertAnOrdinalStringToAnUnsignedIntegerPrimitiveOS2IP_ToTheMaxSizeOfUnsignedInt()
+            "P) - with an input byte array that is padded with zeros")]
+        public virtual void ShouldCorrectlyConvertAnOrdinalStringToAnUnsignedIntegerPrimitiveOS2IP_WithAnInputByteArrayThatIsPaddedWithZeros()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Should correctly convert an ordinal string to an unsigned integer primitive (OS2I" +
-                    "P) - to the max size of unsigned int", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 23
+                    "P) - with an input byte array that is padded with zeros", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 24
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -297,10 +301,88 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 24
+#line 25
+testRunner.When("OS2IP is performed with a byte array that is padded with zeros", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 26
+testRunner.Then("the output integer is correct", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Should correctly convert an ordinal string to an unsigned integer primitive (OS2I" +
+            "P) - with an input byte array that is not padded with zeros")]
+        public virtual void ShouldCorrectlyConvertAnOrdinalStringToAnUnsignedIntegerPrimitiveOS2IP_WithAnInputByteArrayThatIsNotPaddedWithZeros()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Should correctly convert an ordinal string to an unsigned integer primitive (OS2I" +
+                    "P) - with an input byte array that is not padded with zeros", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 28
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 29
+testRunner.When("OS2IP is performed with a byte array that is not padded with zeros", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 30
+testRunner.Then("the output integer is correct", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Should correctly convert an ordinal string to an unsigned integer primitive (OS2I" +
+            "P) - to the max size of unsigned int")]
+        public virtual void ShouldCorrectlyConvertAnOrdinalStringToAnUnsignedIntegerPrimitiveOS2IP_ToTheMaxSizeOfUnsignedInt()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Should correctly convert an ordinal string to an unsigned integer primitive (OS2I" +
+                    "P) - to the max size of unsigned int", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 32
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 33
 testRunner.When("OS2IP is performed with a byte array for the max size of an unsigned integer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 25
+#line 34
 testRunner.Then("the output integer is correct", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
