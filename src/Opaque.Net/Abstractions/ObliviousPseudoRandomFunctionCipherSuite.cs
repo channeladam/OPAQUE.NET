@@ -1,8 +1,8 @@
-namespace Opaque.Net
+namespace Opaque.Net.Abstractions
 {
     /// <summary>
-    /// Ciphersuites for Oblivious Pseudorandom Functions (OPRFs) using Prime-Order Groups.
-    /// A ciphersuite consists of both a prime-order group and a hash.
+    /// Cipher suites for Oblivious Pseudorandom Functions (OPRFs) using Prime-Order Groups.
+    /// A cipher suite consists of both a prime-order group and a hash.
     /// </summary>
     /// <remarks>
     /// See https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-voprf-06.txt#section-5.
@@ -10,8 +10,9 @@ namespace Opaque.Net
     ///  "For applications that cannot tolerate discrete logarithm security of
     ///   lower than 128 bits, we recommend only implementing ciphersuites with
     ///   IDs: 0x0002, 0x0004, and 0x0005."
+    /// Security Note: P384 is not safe according to https://safecurves.cr.yp.to/
     /// </remarks>
-    public enum ObliviousPsuedoRandomFunctionCiphersuites
+    public enum ObliviousPseudoRandomFunctionCipherSuite
     {
         None = 0,
 

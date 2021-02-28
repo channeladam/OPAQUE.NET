@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net5.0;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net5.0;netstandard2.1</TargetFrameworks>
     <Authors>Adam Craven</Authors>
     <Company>Adam Craven</Company>
     <PackageId>OPAQUE.NET</PackageId>
