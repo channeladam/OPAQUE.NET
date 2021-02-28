@@ -14,6 +14,9 @@ namespace BehaviourSpecs
     {
         private KeyPair _keyPair1;
         private int _expectedKeyLength;
+        private ProtocolContext _protocolContext;
+        private byte[] _actualContextString;
+        private byte[] _expectedContextString;
 
         // #region Before/After
 
@@ -42,6 +45,14 @@ namespace BehaviourSpecs
             _expectedKeyLength = 384 / 8;
         }
 
+        [When("the Context String for a protocol context is generated")]
+        public void WhenTheContextStringForAProtocolContextIsGenerated()
+        {
+            _protocolContext = new ServerContext(ObliviousPseudoRandomFunctionCipherSuite.P384_SHA256);
+            _actualContextString = _protocolContext.ContextString.ToArray();
+            _expectedContextString = new byte[] { 0, 0, 4 }; // Mode 0, Cipher 0x0004
+        }
+
         // [When("")]
         // public void When()
         // {
@@ -63,6 +74,10 @@ namespace BehaviourSpecs
             LogAssert.AreEqual("Public key Y coordinate is populated with expected length", _expectedKeyLength, _keyPair1.PublicKeyY.Length);
             LogAssert.IsTrue("Public key Y coordinate is not all byte 255", _keyPair1.PublicKeyY.ToArray().All(b => b != 255));
         }
+
+        [Then("the Context String is as expected")]
+        public void ThenTheContextStringIsAsExpected()
+            => LogAssert.IsTrue("Context String is as expected", _expectedContextString.SequenceEqual(_actualContextString));
 
         // [Then("")]
         // public void Then()
