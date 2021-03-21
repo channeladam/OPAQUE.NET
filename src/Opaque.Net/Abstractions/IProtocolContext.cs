@@ -1,7 +1,11 @@
+using System;
+
 namespace Opaque.Net.Abstractions
 {
     public interface IProtocolContext
     {
-        ObliviousPseudoRandomFunctionCipherSuite CipherSuite { get; }
+        ReadOnlySpan<byte> ContextString { get; }
+        ObliviousPseudoRandomFunctionCipherSuite CipherSuiteName { get; }
+        CipherSuite CipherSuite { get; }
     }
 }
