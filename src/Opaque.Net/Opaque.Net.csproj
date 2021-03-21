@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net5.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>net5.0;netcoreapp3.1</TargetFrameworks>
     <Authors>Adam Craven</Authors>
     <Company>Adam Craven</Company>
     <PackageId>OPAQUE.NET</PackageId>
@@ -37,12 +37,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CppSharp" Version="0.11.2"/>
     <PackageReference Include="libsodium" Version="1.0.18"/>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="CppSharp" Version="0.11.2"/>
   </ItemGroup>
 
   <ItemGroup>

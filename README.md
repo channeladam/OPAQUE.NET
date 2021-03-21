@@ -9,7 +9,7 @@ This library is a .NET 5 / Core implementation of the OPAQUE protocol - a 2021 s
 Targets:
 
 - .NET 5.0
-- .NET 2.0
+- .NET Core App 3.1 (and not .NET Standard 2.1 due to a CppSharp 0.11.2 limitation)
 
 ## Development Status
 
