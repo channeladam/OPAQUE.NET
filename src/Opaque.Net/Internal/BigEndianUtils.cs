@@ -1,9 +1,9 @@
 using System;
 using System.Numerics;
 
-namespace Opaque.Net
+namespace Opaque.Net.Internal
 {
-    public static class BigEndianUtils
+    internal static class BigEndianUtils
     {
         /// <summary>
         /// Convert an unsigned integer to the big-endian ordinal string primitive (I2OSP)
@@ -11,7 +11,7 @@ namespace Opaque.Net
         /// </summary>
         /// <param name="value">The unsigned integer to convert.</param>
         /// <param name="outputLength">Intended length of the resulting octet string.</param>
-        public static Span<byte> ConvertIntegerToOrdinalStringPrimitive(uint value, ushort outputLength)
+        internal static Span<byte> ConvertIntegerToOrdinalStringPrimitive(uint value, ushort outputLength)
         {
             if (value >= Math.Pow(256, outputLength))
             {
@@ -33,7 +33,7 @@ namespace Opaque.Net
         /// </summary>
         /// <param name="value">The unsigned integer to convert.</param>
         /// <param name="outputLength">Intended length of the resulting octet string.</param>
-        public static void ConvertIntegerToOrdinalStringPrimitive(
+        internal static void ConvertIntegerToOrdinalStringPrimitive(
             uint value,
             ushort outputLength,
             ref byte[] outputByteArray,
@@ -64,7 +64,7 @@ namespace Opaque.Net
         /// Convert a big-endian ordinal string primitive to an unsigned integer (OS2IP)
         /// as per https://datatracker.ietf.org/doc/html/rfc8017#section-4.2.
         /// </summary>
-        public static uint ConvertOrdinalStringToIntegerPrimitive(byte[] input)
+        internal static uint ConvertOrdinalStringToIntegerPrimitive(byte[] input)
         {
             if (input.Length > 4)
             {

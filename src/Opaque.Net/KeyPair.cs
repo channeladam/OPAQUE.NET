@@ -1,7 +1,7 @@
 using System;
 using System.Security.Cryptography;
 
-namespace Opaque.Net.Abstractions
+namespace Opaque.Net
 {
     /// <summary>
     /// Represents a public/private key pair for an elliptic curve cryptography (ECC) algorithm.

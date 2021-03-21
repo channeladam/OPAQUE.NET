@@ -1,6 +1,5 @@
 using System;
 using System.Security.Cryptography;
-using Opaque.Net.Abstractions;
 
 namespace Opaque.Net
 {
@@ -9,6 +8,7 @@ namespace Opaque.Net
         public static ECCurve CreateECCurve(ObliviousPseudoRandomFunctionCipherSuite cipherSuite)
             => cipherSuite switch
             {
+                // TODO: merge into CipherSuiteProviderFactory
                 ObliviousPseudoRandomFunctionCipherSuite.P256_SHA256 => ECCurve.NamedCurves.nistP256,
                 ObliviousPseudoRandomFunctionCipherSuite.P384_SHA256 => ECCurve.NamedCurves.nistP384,
                 ObliviousPseudoRandomFunctionCipherSuite.P521_SHA256 => ECCurve.NamedCurves.nistP521,

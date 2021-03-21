@@ -2,7 +2,7 @@ using System;
 using System.Security.Cryptography;
 using Opaque.Net.Abstractions;
 
-namespace Opaque.Net
+namespace Opaque.Net.PrimeOrderGroups
 {
     public class Ristretto255PrimeOrderGroup : IPrimeOrderGroup
     {

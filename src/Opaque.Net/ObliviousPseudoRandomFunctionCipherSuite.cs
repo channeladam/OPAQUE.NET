@@ -1,4 +1,4 @@
-namespace Opaque.Net.Abstractions
+namespace Opaque.Net
 {
     /// <summary>
     /// Cipher suites for Oblivious Pseudorandom Functions (OPRFs) using Prime-Order Groups.

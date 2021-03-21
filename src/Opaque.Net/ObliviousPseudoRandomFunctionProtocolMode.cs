@@ -1,4 +1,4 @@
-namespace Opaque.Net.Abstractions
+namespace Opaque.Net
 {
     /// <summary>
     /// Oblivious Pseudo-Random Function protocol variant modes of operation.

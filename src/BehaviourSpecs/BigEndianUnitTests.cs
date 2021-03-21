@@ -3,7 +3,7 @@
 using System;
 using System.Linq;
 using ChannelAdam.TestFramework.NUnit.Abstractions;
-using Opaque.Net;
+using Opaque.Net.Internal;
 using TechTalk.SpecFlow;
 
 namespace BehaviourSpecs

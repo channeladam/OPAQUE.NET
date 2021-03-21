@@ -6,6 +6,7 @@ using ChannelAdam.TestFramework.NUnit.Abstractions;
 using Opaque.Net;
 using Opaque.Net.Abstractions;
 using Opaque.Net.Internal;
+using Opaque.Net.PrimeOrderGroups;
 using TechTalk.SpecFlow;
 
 namespace BehaviourSpecs

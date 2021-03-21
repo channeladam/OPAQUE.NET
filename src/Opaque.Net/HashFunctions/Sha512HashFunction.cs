@@ -1,7 +1,7 @@
 using System;
 using Opaque.Net.Abstractions;
 
-namespace Opaque.Net
+namespace Opaque.Net.HashFunctions
 {
     public class Sha512HashFunction : IHashFunction
     {

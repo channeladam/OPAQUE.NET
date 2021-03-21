@@ -1,4 +1,6 @@
-namespace Opaque.Net.Abstractions
+using Opaque.Net.Abstractions;
+
+namespace Opaque.Net
 {
     public class CipherSuite
     {

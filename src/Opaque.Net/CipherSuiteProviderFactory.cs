@@ -1,6 +1,7 @@
 using System;
-using Opaque.Net.Abstractions;
+using Opaque.Net.HashFunctions;
 using Opaque.Net.Internal;
+using Opaque.Net.PrimeOrderGroups;
 
 namespace Opaque.Net
 {

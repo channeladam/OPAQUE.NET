@@ -1,7 +1,7 @@
 using System;
-using Opaque.Net.Abstractions;
+using Opaque.Net.Internal;
 
-namespace Opaque.Net
+namespace Opaque.Net.Abstractions
 {
     public abstract class ProtocolContext : IProtocolContext
     {
