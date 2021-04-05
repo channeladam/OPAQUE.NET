@@ -1,16 +1,33 @@
+using System;
+using System.Security;
 using Opaque.Net.Abstractions;
-// using Opaque.Net.Internal;
 
 namespace Opaque.Net
 {
-    public class ClientContext : ProtocolContext //, IHasKeyPair
+    public class ClientContext : ProtocolContext, IClientContext
     {
-        public ClientContext(ObliviousPseudoRandomFunctionCipherSuite cipherSuite) : base(cipherSuite)
+        public ClientContext(CipherSuite cipherSuite) : base(cipherSuite)
         {
-            // TODO: is this needed?
-            // KeyPair = CryptoUtils.GenerateKeyPair(cipherSuite);
         }
 
-        // public KeyPair KeyPair { get; }
+        /// <inheritdoc />
+        public ClientContextBlindResult Blind(SecureString clientInput)
+            => Blind(clientInput.ConvertToByteArray());
+
+        /// <inheritdoc />
+        public ClientContextBlindResult Blind(byte[] clientInput)
+        {
+            // blind = GG.RandomScalar()
+            byte[] blindScalar = CipherSuite.PrimeOrderGroup.GenerateRandomScalar();
+
+            // P = GG.HashToGroup(input)
+            byte[] pGroupElement = CipherSuite.PrimeOrderGroup.HashToGroup(clientInput);
+
+            // blindedElement = GG.SerializeElement(blind * P)
+            byte[] blindedGroupElement = CipherSuite.PrimeOrderGroup.ScalarMult(blindScalar, pGroupElement);
+
+            // return blind, blindedElement
+            return new ClientContextBlindResult(blindScalar, blindedGroupElement);
+        }
     }
 }

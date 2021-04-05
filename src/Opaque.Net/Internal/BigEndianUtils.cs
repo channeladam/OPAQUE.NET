@@ -11,7 +11,7 @@ namespace Opaque.Net.Internal
         /// </summary>
         /// <param name="value">The unsigned integer to convert.</param>
         /// <param name="outputLength">Intended length of the resulting octet string.</param>
-        internal static Span<byte> ConvertIntegerToOrdinalStringPrimitive(uint value, ushort outputLength)
+        internal static byte[] ConvertIntegerToOrdinalStringPrimitive(int value, ushort outputLength)
         {
             if (value >= Math.Pow(256, outputLength))
             {
@@ -34,10 +34,10 @@ namespace Opaque.Net.Internal
         /// <param name="value">The unsigned integer to convert.</param>
         /// <param name="outputLength">Intended length of the resulting octet string.</param>
         internal static void ConvertIntegerToOrdinalStringPrimitive(
-            uint value,
+            int value,
             ushort outputLength,
             ref byte[] outputByteArray,
-            uint outputArrayOffset)
+            int outputArrayOffset)
         {
             if (value >= Math.Pow(256, outputLength))
             {
@@ -57,6 +57,33 @@ namespace Opaque.Net.Internal
             for (int index = outputLength - 1; index >= 0; index--)
             {
                 outputByteArray[outputArrayOffset + index] = (byte)(value >> (8 * (outputLength - 1 - index)));
+            }
+        }
+
+        /// <summary>
+        /// Convert an unsigned integer to the big-endian ordinal string primitive (I2OSP)
+        /// as per https://datatracker.ietf.org/doc/html/rfc8017#section-4.1.
+        /// </summary>
+        /// <param name="value">The unsigned integer to convert.</param>
+        /// <param name="outputLength">Intended length of the resulting octet string.</param>
+        internal static void ConvertIntegerToOrdinalStringPrimitive(
+            int value,
+            ushort outputLength,
+            Span<byte> outputSpan)
+        {
+            if (value >= Math.Pow(256, outputLength))
+            {
+                throw new ArithmeticException("Integer is too large for the intended output length");
+            }
+
+            if (outputLength > outputSpan.Length)
+            {
+                throw new ArithmeticException("Integer is too large for the intended output length with the given output Span");
+            }
+
+            for (int index = outputLength - 1; index >= 0; index--)
+            {
+                outputSpan[index] = (byte)(value >> (8 * (outputLength - 1 - index)));
             }
         }
 

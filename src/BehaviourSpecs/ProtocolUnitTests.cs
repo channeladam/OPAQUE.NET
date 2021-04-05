@@ -15,7 +15,7 @@ namespace BehaviourSpecs
     {
         // private KeyPair _keyPair1;
         // private int _expectedKeyLength;
-        private ProtocolContext _protocolContext;
+        private ICipherSuite _cipherSuite;
         private byte[] _actualContextString;
         private byte[] _expectedContextString;
 
@@ -49,10 +49,13 @@ namespace BehaviourSpecs
         [When("the Context String for a protocol context is generated")]
         public void WhenTheContextStringForAProtocolContextIsGenerated()
         {
-            const ObliviousPseudoRandomFunctionCipherSuite suite = ObliviousPseudoRandomFunctionCipherSuite.Ristretto255_SHA512;
-            _protocolContext = new ServerContext(suite);
-            _actualContextString = _protocolContext.ContextString.ToArray();
-            _expectedContextString = new byte[] { 0, 0, (byte)suite }; // Mode 0, Cipher 0x0004
+            const ObliviousPseudoRandomFunctionCipherSuite cipherSuiteName = ObliviousPseudoRandomFunctionCipherSuite.Ristretto255_SHA512;
+            PrimeOrderGroupFactory pogFactory = new();
+            HashFunctionFactory hfFactory = new();
+            _cipherSuite = new CipherSuite(cipherSuiteName, pogFactory, hfFactory);
+
+            _actualContextString = _cipherSuite.ProtocolContextString.ToArray();
+            _expectedContextString = new byte[] { 0, 0, (byte)cipherSuiteName }; // Mode 0, Cipher 0x0004
         }
 
         // [When("")]

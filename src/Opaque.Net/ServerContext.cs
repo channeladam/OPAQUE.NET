@@ -1,18 +1,12 @@
-using System;
 using Opaque.Net.Abstractions;
-// using Opaque.Net.Internal;
 
 namespace Opaque.Net
 {
-    public class ServerContext : ProtocolContext //, IHasKeyPair
+    public class ServerContext : ProtocolContext
     {
-        public ServerContext(ObliviousPseudoRandomFunctionCipherSuite cipherSuite) : base(cipherSuite)
+        public ServerContext(CipherSuite cipherSuite) : base(cipherSuite)
         {
-            // TODO - get this from a secret store that only the server has access to
-            // KeyPair = CryptoUtils.GenerateKeyPair(cipherSuite);
         }
-
-        // public KeyPair KeyPair { get; }
 
         /// <summary>
         /// Evaluate
@@ -33,7 +27,7 @@ namespace Opaque.Net
         ///     evaluatedElement = GG.SerializeElement(Z)
         ///     return evaluatedElement
         /// </remarks>
-        public ReadOnlySpan<byte> Evaluate(ReadOnlySpan<byte> skSServerPrivateKeyScalar, ReadOnlySpan<byte> clientBlindedGroupElement)
+        public byte[] Evaluate(byte[] skSServerPrivateKeyScalar, byte[] clientBlindedGroupElement)
             => CipherSuite.PrimeOrderGroup.ScalarMult(skSServerPrivateKeyScalar, clientBlindedGroupElement);
 
         // NOTE: "not used in the main OPRF Protocol"

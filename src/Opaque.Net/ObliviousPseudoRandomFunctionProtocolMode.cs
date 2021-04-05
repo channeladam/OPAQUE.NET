@@ -9,6 +9,6 @@ namespace Opaque.Net
     public enum ObliviousPseudoRandomFunctionProtocolMode
     {
         Base = 0x00,
-        Verifiable = 0x01
+        // Verifiable = 0x01 // Not supported or needed for Opaque
     }
 }

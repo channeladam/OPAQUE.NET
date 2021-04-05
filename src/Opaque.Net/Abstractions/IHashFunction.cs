@@ -2,10 +2,10 @@ namespace Opaque.Net.Abstractions
 {
     public interface IHashFunction
     {
-        // TODO
-        byte[] HashToGroup();
+        ushort InputBlockSizeInBytes { get; }
+        ushort OutputSizeInBits { get; }
+        ushort OutputSizeInBytes { get; }
 
-        // TODO
-        int HashToScalar();
+        byte[] HashData(byte[] source);
     }
 }
