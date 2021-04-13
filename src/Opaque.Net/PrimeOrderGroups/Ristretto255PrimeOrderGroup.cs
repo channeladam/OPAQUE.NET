@@ -13,7 +13,8 @@ namespace Opaque.Net.PrimeOrderGroups
         /// </remarks>
         private const string DomainSeparationTagPrefix = "VOPRF06";
 
-        private static readonly byte[] _domainSeparationTagPrefix = DomainSeparationTagPrefix.ConvertStringAsUtf8ToByteArray();
+        private static readonly byte[] _hyphenBytes = "-".ConvertStringAsUtf8ToByteArray();
+        private static readonly byte[] _domainSeparationTagPrefixBytes = DomainSeparationTagPrefix.ConvertStringAsUtf8ToByteArray();
 
         private readonly Lazy<int> _elementBytesLength = new(() =>
             (int)Sodium.crypto_core_ristretto255.CryptoCoreRistretto255Bytes());
@@ -176,8 +177,10 @@ namespace Opaque.Net.PrimeOrderGroups
         private byte[] CreateDomainSeparationTag(string functionName)
             => ByteArrayUtils.Concatenate(new List<byte[]>
             {
-                _domainSeparationTagPrefix,
+                _domainSeparationTagPrefixBytes,
+                _hyphenBytes,
                 functionName.ConvertStringAsUtf8ToByteArray(),
+                _hyphenBytes,
                 _cipherSuite.ProtocolContextString
             });
 
