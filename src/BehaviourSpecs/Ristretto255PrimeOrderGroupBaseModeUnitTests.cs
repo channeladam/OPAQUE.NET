@@ -43,7 +43,7 @@ namespace BehaviourSpecs
             _cipherSuiteName = ObliviousPseudoRandomFunctionCipherSuite.Ristretto255_SHA512;
             PrimeOrderGroupFactory pogFactory = new();
             HashFunctionFactory hfFactory = new();
-            _cipherSuite = new CipherSuite(_cipherSuiteName, pogFactory, hfFactory);
+            _cipherSuite = new CipherSuite(_cipherSuiteName, ObliviousPseudoRandomFunctionProtocolMode.Base, pogFactory, hfFactory);
 
             _pog = _cipherSuite.PrimeOrderGroup;
 
