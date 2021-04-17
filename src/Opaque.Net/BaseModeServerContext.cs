@@ -1,11 +1,21 @@
+using System;
 using Opaque.Net.Abstractions;
 
 namespace Opaque.Net
 {
-    public class ServerContext : ProtocolContext
+    /// <summary>
+    /// An implementation of the Server Context when operating in the OPRF Base Mode.
+    /// </summary>
+    public class BaseModeServerContext : ProtocolContext
     {
-        public ServerContext(CipherSuite cipherSuite) : base(cipherSuite)
+        public BaseModeServerContext(CipherSuite cipherSuite) : base(cipherSuite)
         {
+            if (CipherSuite.ProtocolMode == ObliviousPseudoRandomFunctionProtocolMode.Base)
+            {
+                return;
+            }
+
+            throw new InvalidOperationException($"The Cipher Suite Protocol Mode must be 'Base'");
         }
 
         /// <summary>
@@ -15,7 +25,7 @@ namespace Opaque.Net
         /// <param name="clientBlindedGroupElement">The serialised blinded element from the client - i.e. the blinded user's password.</param>
         /// <returns>A serialised group element - to be an input to an Unblind function.</returns>
         /// <remarks>
-        /// Specification: see https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-voprf-06.txt#section-3.4.1.1.
+        /// Base Mode Specification: see https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-voprf-06.txt#section-3.4.1.1.
         ///   Input:
         ///     PrivateKey skS
         ///     SerializedElement blindedElement
@@ -27,17 +37,10 @@ namespace Opaque.Net
         ///     evaluatedElement = GG.SerializeElement(Z)
         ///     return evaluatedElement
         /// </remarks>
-        public byte[] Evaluate(byte[] skSServerPrivateKeyScalar, byte[] clientBlindedGroupElement)
-            => CipherSuite.PrimeOrderGroup.PerformScalarMultiplication(skSServerPrivateKeyScalar, clientBlindedGroupElement);
-
-        // NOTE: "not used in the main OPRF Protocol".
-        // https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-voprf-06.txt#section-3.4.1
-        //  - only for the Verifiable OPRF - proving that the server used its private key.
-        // public void FullEvaluate()
-        // {
-        // }
-        // public void VerifyFinalize()
-        // {
-        // } 
+        public ServerContextEvaluatedResult Evaluate(byte[] skSServerPrivateKeyScalar, byte[] clientBlindedGroupElement)
+        {
+            byte[] evaluatedGroupElement = CipherSuite.PrimeOrderGroup.PerformScalarMultiplication(skSServerPrivateKeyScalar, clientBlindedGroupElement);
+            return new ServerContextEvaluatedResult(evaluatedGroupElement);
+        }
     }
 }

@@ -1,4 +1,4 @@
-Feature: Ristretto 255 Prime Order Group
+Feature: Ristretto 255 Prime Order Group - Base Mode
 
 Scenario: Should successfully generate a random group element
 When a random group element is generated
@@ -43,6 +43,9 @@ Given the values from Test Vector 2 in the specification
 And the Client Context uses the Blind Random Scalar from the Test Vector
 When the Client Context finalises the Evaluated Group Element
 Then the Client Context finalisation output result is correct
+
+Scenario: Should successfully perform the entire protocol
+Given TODO
 
 # Scenario: 01 - Should register a client with a server
 # Given the client with a username and password

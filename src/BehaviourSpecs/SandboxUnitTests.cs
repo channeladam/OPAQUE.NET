@@ -22,8 +22,8 @@ namespace BehaviourSpecs
             CryptoUtils.InitialiseCryptography();
             LogAssert.AreEqual("Sodium library version", "1.0.18", CryptoUtils.GetSodiumLibraryVersion());
 
-            ClientContext clientContext = new(cipherSuite);
-            ServerContext serverContext = new(cipherSuite);
+            BaseModeClientContext clientContext = new(cipherSuite);
+            BaseModeServerContext serverContext = new(cipherSuite);
         }
     }
 }

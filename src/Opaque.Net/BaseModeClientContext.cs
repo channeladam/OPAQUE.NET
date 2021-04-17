@@ -7,10 +7,19 @@ using Opaque.Net.Internal;
 
 namespace Opaque.Net
 {
-    public class ClientContext : ProtocolContext, IClientContext
+    /// <summary>
+    /// An implementation of the Client Context when operating in the OPRF Base Mode.
+    /// </summary>
+    public class BaseModeClientContext : ProtocolContext, IClientContext
     {
-        public ClientContext(CipherSuite cipherSuite) : base(cipherSuite)
+        public BaseModeClientContext(CipherSuite cipherSuite) : base(cipherSuite)
         {
+            if (CipherSuite.ProtocolMode == ObliviousPseudoRandomFunctionProtocolMode.Base)
+            {
+                return;
+            }
+
+            throw new InvalidOperationException($"The Cipher Suite Protocol Mode must be 'Base'");
         }
 
         /// <inheritdoc />
@@ -20,7 +29,7 @@ namespace Opaque.Net
         /// <inheritdoc />
         /// <remarks>
         /// <p>
-        /// Specification: https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-voprf-06.txt#section-3.4.3.1.
+        /// Base Mode Specification: https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-voprf-06.txt#section-3.4.3.1.
         ///   Input:
         ///     ClientInput input
         ///   Output:
@@ -55,8 +64,7 @@ namespace Opaque.Net
 
         /// <inheritdoc />
         /// <remarks>
-        /// Specification: https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-voprf-06.txt#section-3.4.3.3
-        /// .
+        /// Base Mode Specification: https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-voprf-06.txt#section-3.4.3.3
         /// Input:
         ///     ClientInput input
         ///     Scalar blind
@@ -105,7 +113,7 @@ namespace Opaque.Net
         /// </summary>
         /// <returns>Unblinded Group Element.</returns>
         /// <remarks>
-        /// Specification: https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-voprf-06.txt#section-3.4.3.2
+        /// Base Mode Specification: https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-voprf-06.txt#section-3.4.3.2
         /// Input:
         ///     Scalar blind
         ///     SerializedElement evaluatedElement

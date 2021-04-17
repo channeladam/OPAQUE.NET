@@ -12,8 +12,8 @@ using TechTalk.SpecFlow;
 namespace BehaviourSpecs
 {
     [Binding]
-    [Scope(Feature = "Ristretto 255 Prime Order Group")]
-    public class Ristretto255PrimeOrderGroupUnitTests : MoqTestFixture
+    [Scope(Feature = "Ristretto 255 Prime Order Group - Base Mode")]
+    public class Ristretto255PrimeOrderGroupBaseModeUnitTests : MoqTestFixture
     {
         private ObliviousPseudoRandomFunctionCipherSuite _cipherSuiteName;
         private CipherSuite _cipherSuite;
@@ -23,8 +23,8 @@ namespace BehaviourSpecs
         private ClientContextBlindResult _blindResult;
         private byte[] _actualBytes;
         private int _expectedLength;
-        private ClientContext _clientContext;
-        private ServerContext _serverContext;
+        private BaseModeClientContext _clientContext;
+        private BaseModeServerContext _serverContext;
         private byte[] _testVectorKeyPairSeed;
         private byte[] _testVectorSecretKeyServer;
         private byte[] _testVectorInput;
@@ -142,7 +142,7 @@ namespace BehaviourSpecs
 
         [When("the Server Context performs evaluation")]
         public void WhenTheServerContextPerformsEvaluation()
-            => _actualBytes = _serverContext.Evaluate(_testVectorSecretKeyServer, _testVectorBlindedElement).ToArray();
+            => _actualBytes = _serverContext.Evaluate(_testVectorSecretKeyServer, _testVectorBlindedElement).EvaluatedGroupElement.ToArray();
 
         [When("the Client Context finalises the Evaluated Group Element")]
         public void WhenTheClientContextFinalisesTheEvaluatedGroupElement()
