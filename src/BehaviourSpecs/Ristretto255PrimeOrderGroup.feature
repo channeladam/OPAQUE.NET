@@ -32,6 +32,17 @@ Given the values from Test Vector 2 in the specification
 When the Server Context performs evaluation
 Then the Server Context evaluation result is correct
 
+Scenario: Should successfully perform Client Context Finalisation - with Specification Test Vector 1
+Given the values from Test Vector 1 in the specification
+And the Client Context uses the Blind Random Scalar from the Test Vector
+When the Client Context finalises the Evaluated Group Element
+Then the Client Context finalisation output result is correct
+
+Scenario: Should successfully perform Client Context Finalisation - with Specification Test Vector 2
+Given the values from Test Vector 2 in the specification
+And the Client Context uses the Blind Random Scalar from the Test Vector
+When the Client Context finalises the Evaluated Group Element
+Then the Client Context finalisation output result is correct
 
 # Scenario: 01 - Should register a client with a server
 # Given the client with a username and password

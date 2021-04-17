@@ -7,5 +7,6 @@ namespace Opaque.Net.Abstractions
         IPrimeOrderGroup PrimeOrderGroup { get; }
         IHashFunction HashFunction { get; }
         byte[] ProtocolContextString { get; }
+        byte[] CreateDomainSeparationTag(string functionName);
     }
 }

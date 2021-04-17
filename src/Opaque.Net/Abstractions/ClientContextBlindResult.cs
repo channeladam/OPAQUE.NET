@@ -1,4 +1,4 @@
-namespace Opaque.Net
+namespace Opaque.Net.Abstractions
 {
     public class ClientContextBlindResult
     {

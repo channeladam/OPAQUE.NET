@@ -9,7 +9,7 @@ namespace Opaque.Net
         }
 
         /// <summary>
-        /// Evaluate
+        /// Evaluates the client's blinded result.
         /// </summary>
         /// <param name="skSServerPrivateKeyScalar">The secret key of the server (skS) - i.e. the server's private key as a scalar value.</param>
         /// <param name="clientBlindedGroupElement">The serialised blinded element from the client - i.e. the blinded user's password.</param>
@@ -28,10 +28,11 @@ namespace Opaque.Net
         ///     return evaluatedElement
         /// </remarks>
         public byte[] Evaluate(byte[] skSServerPrivateKeyScalar, byte[] clientBlindedGroupElement)
-            => CipherSuite.PrimeOrderGroup.ScalarMult(skSServerPrivateKeyScalar, clientBlindedGroupElement);
+            => CipherSuite.PrimeOrderGroup.PerformScalarMultiplication(skSServerPrivateKeyScalar, clientBlindedGroupElement);
 
-        // NOTE: "not used in the main OPRF Protocol"
+        // NOTE: "not used in the main OPRF Protocol".
         // https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-voprf-06.txt#section-3.4.1
+        //  - only for the Verifiable OPRF - proving that the server used its private key.
         // public void FullEvaluate()
         // {
         // }

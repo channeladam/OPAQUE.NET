@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Security.Cryptography;
 using Opaque.Net.Abstractions;
 using Opaque.Net.Internal;
@@ -8,14 +7,6 @@ namespace Opaque.Net.PrimeOrderGroups
 {
     public class Ristretto255PrimeOrderGroup : IPrimeOrderGroup
     {
-        /// <remarks>
-        /// DST Prefix - https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-voprf-06.txt#section-5.1
-        /// </remarks>
-        private const string DomainSeparationTagPrefix = "VOPRF06";
-
-        private static readonly byte[] _hyphenBytes = "-".ConvertStringAsUtf8ToByteArray();
-        private static readonly byte[] _domainSeparationTagPrefixBytes = DomainSeparationTagPrefix.ConvertStringAsUtf8ToByteArray();
-
         private readonly Lazy<int> _elementBytesLength = new(() =>
             (int)Sodium.crypto_core_ristretto255.CryptoCoreRistretto255Bytes());
 
@@ -66,8 +57,26 @@ namespace Opaque.Net.PrimeOrderGroups
             return result;
         }
 
+        /// <summary>
+        /// Inverts the given Scalar.
+        /// </summary>
+        /// <param name="scalarToInvert">The scalar value to be inverted.</param>
+        /// <returns>The inverted Scalar value.</returns>
+        public unsafe byte[] InvertScalar(byte[] scalarToInvert)
+        {
+            byte[] result = new byte[ScalarBytesLength];
+
+            fixed (byte* resultPointer = &result[0],
+                         scalarToInvertPointer = &scalarToInvert[0])
+            {
+                Sodium.crypto_core_ristretto255.CryptoCoreRistretto255ScalarInvert(resultPointer, scalarToInvertPointer);
+            }
+
+            return result;
+        }
+
         /// <inheritdoc />
-        public unsafe byte[] ScalarMult(byte[] nScalar, byte[] pGroupElement)
+        public unsafe byte[] PerformScalarMultiplication(byte[] nScalar, byte[] pGroupElement)
         {
             nScalar.ValidateLength(ScalarBytesLength, "n");
             pGroupElement.ValidateLength(GroupElementBytesLength, "p");
@@ -146,7 +155,7 @@ namespace Opaque.Net.PrimeOrderGroups
         {
             // DST, a domain separation tag
             // as per https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-voprf-06.txt#section-5.1
-            byte[] dst = CreateDomainSeparationTag("HashToGroup");
+            byte[] dst = _cipherSuite.CreateDomainSeparationTag("HashToGroup");
 
             //   1. uniform_bytes = expand_message(msg, DST, 64)
             //     - "expand_message" = "expand_message_xmd" using SHA-512.
@@ -172,18 +181,18 @@ namespace Opaque.Net.PrimeOrderGroups
             return pGroupElementResult;
         }
 
-        #region Private Methods
-
-        private byte[] CreateDomainSeparationTag(string functionName)
-            => ByteArrayUtils.Concatenate(new List<byte[]>
+        /// <summary>
+        /// Determines if the provided Group Element is a valid point in the Group.
+        /// </summary>
+        /// <param name="pGroupElement">A Group Element 'P'.</param>
+        /// <returns><c>true</c> if the given point is valid.</returns>
+        public unsafe bool IsValidPoint(byte[] pGroupElement)
+        {
+            fixed (byte* pGroupElementPointer = &pGroupElement[0])
             {
-                _domainSeparationTagPrefixBytes,
-                _hyphenBytes,
-                functionName.ConvertStringAsUtf8ToByteArray(),
-                _hyphenBytes,
-                _cipherSuite.ProtocolContextString
-            });
-
-        #endregion Private Methods
+                int success = Sodium.crypto_core_ristretto255.CryptoCoreRistretto255IsValidPoint(pGroupElementPointer);
+                return success == 1;
+            }
+        }
     }
 }

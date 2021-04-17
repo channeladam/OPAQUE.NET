@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Opaque.Net.Abstractions;
 using Opaque.Net.Internal;
 
@@ -6,6 +7,14 @@ namespace Opaque.Net
 {
     public class CipherSuite : ICipherSuite
     {
+        /// <remarks>
+        /// DST Prefix - https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-voprf-06.txt#section-5.1
+        /// </remarks>
+        private const string DomainSeparationTagPrefix = "VOPRF06";
+
+        private static readonly byte[] _hyphenBytes = "-".ConvertStringAsUtf8ToByteArray();
+        private static readonly byte[] _domainSeparationTagPrefixBytes = DomainSeparationTagPrefix.ConvertStringAsUtf8ToByteArray();
+
         private readonly Lazy<bool> _lazyCryptoInitialisation = new(() =>
         {
             CryptoUtils.InitialiseCryptography();
@@ -58,6 +67,16 @@ namespace Opaque.Net
                 return result;
             }
         }
+
+        public byte[] CreateDomainSeparationTag(string functionName)
+            => ByteArrayUtils.Concatenate(new List<byte[]>
+            {
+                _domainSeparationTagPrefixBytes,
+                _hyphenBytes,
+                functionName.ConvertStringAsUtf8ToByteArray(),
+                _hyphenBytes,
+                ProtocolContextString
+            });
 
         #region Private Methods
 

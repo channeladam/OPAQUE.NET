@@ -144,6 +144,13 @@ namespace BehaviourSpecs
         public void WhenTheServerContextPerformsEvaluation()
             => _actualBytes = _serverContext.Evaluate(_testVectorSecretKeyServer, _testVectorBlindedElement).ToArray();
 
+        [When("the Client Context finalises the Evaluated Group Element")]
+        public void WhenTheClientContextFinalisesTheEvaluatedGroupElement()
+        {
+            ServerContextEvaluatedResult serverContextEvaluatedResult = new(_testVectorEvaluationElement);
+            _actualBytes = _clientContext.Finalise(_testVectorInput, _testVectorBlindRandomScalar, serverContextEvaluatedResult);
+        }
+
         // [When("")]
         // public void When()
         // {
@@ -175,6 +182,10 @@ namespace BehaviourSpecs
         public void ThenTheServerContextEvaluationResultIsCorrect()
             => LogAssert.IsTrue("ServerContext Evaluation is correct", _testVectorEvaluationElement.SequenceEqual(_actualBytes));
 
+        [Then("the Client Context finalisation output result is correct")]
+        public void ThenTheClientContextFinalisationOutputResultIsCorrect()
+            => LogAssert.IsTrue("Client Context Finalisation output is correct", _testVectorOutput.SequenceEqual(_actualBytes));
+
         // [Then("")]
         // public void Then()
         // {
@@ -188,9 +199,11 @@ namespace BehaviourSpecs
         {
             _mockPog = MyMockRepository.Create<IPrimeOrderGroup>();
             _mockPog.Setup(m => m.GenerateRandomScalar()).Returns(_testVectorBlindRandomScalar);
+            _mockPog.Setup(m => m.InvertScalar(It.IsAny<byte[]>())).Returns<byte[]>((bytes) => _pog.InvertScalar(bytes));
             _mockPog.Setup(m => m.GenerateRandomGroupElement()).Returns(() => _pog.GenerateRandomGroupElement());
+            _mockPog.Setup(m => m.PerformScalarMultiplication(It.IsAny<byte[]>(), It.IsAny<byte[]>())).Returns<byte[], byte[]>((b1, b2) => _pog.PerformScalarMultiplication(b1, b2));
             _mockPog.Setup(m => m.HashToGroup(It.IsAny<byte[]>())).Returns<byte[]>((bytes) => _pog.HashToGroup(bytes));
-            _mockPog.Setup(m => m.ScalarMult(It.IsAny<byte[]>(), It.IsAny<byte[]>())).Returns<byte[], byte[]>((b1, b2) => _pog.ScalarMult(b1, b2));
+            _mockPog.Setup(m => m.IsValidPoint(It.IsAny<byte[]>())).Returns<byte[]>((bytes) => _pog.IsValidPoint(bytes));
             _mockPog.SetupGet(p => p.GroupElementBytesLength).Returns(() => _pog.GroupElementBytesLength);
             _mockPog.SetupGet(p => p.HashBytesLength).Returns(() => _pog.HashBytesLength);
             _mockPog.SetupGet(p => p.ScalarBytesLength).Returns(() => _pog.ScalarBytesLength);
