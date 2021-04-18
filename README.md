@@ -6,14 +6,18 @@
 
 This library is a .NET 5 / Core implementation of the OPAQUE protocol - a 2021 successor to the Secure Remote Password (SRP) protocol and others.
 
-Targets:
+## .NET Targets
 
 - .NET 5.0
-- .NET Core App 3.1 (and not .NET Standard 2.1 due to a CppSharp 0.11.2 limitation)
+- .NET Standard 2.1
+
+## Dependencies
+
+- [OPRF.NET](https://www.nuget.org/packages/OPRF.NET)
 
 ## Development Status
 
-This library is under construction and is not yet ready for use.
+This library is under construction and is NOT yet ready for use.
 
 ## Background
 
