@@ -10,7 +10,7 @@ namespace Opaque.Net
     /// <summary>
     /// An implementation of the Client Context when operating in the OPRF Base Mode.
     /// </summary>
-    public class BaseModeClientContext : ProtocolContext, IClientContext
+    public class BaseModeClientContext : ProtocolContext, IBaseModeClientContext
     {
         public BaseModeClientContext(CipherSuite cipherSuite) : base(cipherSuite)
         {
@@ -19,7 +19,7 @@ namespace Opaque.Net
                 return;
             }
 
-            throw new InvalidOperationException($"The Cipher Suite Protocol Mode must be 'Base'");
+            throw new InvalidOperationException("The Cipher Suite Protocol Mode must be 'Base'");
         }
 
         /// <inheritdoc />

@@ -6,7 +6,7 @@ namespace Opaque.Net
     /// <summary>
     /// An implementation of the Server Context when operating in the OPRF Base Mode.
     /// </summary>
-    public class BaseModeServerContext : ProtocolContext
+    public class BaseModeServerContext : ProtocolContext, IBaseModeServerContext
     {
         public BaseModeServerContext(CipherSuite cipherSuite) : base(cipherSuite)
         {
@@ -15,7 +15,7 @@ namespace Opaque.Net
                 return;
             }
 
-            throw new InvalidOperationException($"The Cipher Suite Protocol Mode must be 'Base'");
+            throw new InvalidOperationException("The Cipher Suite Protocol Mode must be 'Base'");
         }
 
         /// <summary>
